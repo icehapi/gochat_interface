@@ -1,0 +1,57 @@
+syntax = "proto3";
+option go_package="./;proto";
+package gochat_interface;
+
+import "google/api/annotations.proto";
+
+message RegisterRequest {
+    string username = 1;
+    string password = 2;
+}
+
+message RegisterResponse {
+    int32 code = 1;
+    string message = 2;
+    string authtoken = 3;
+}
+
+message LoginRequest {
+    string username = 1;
+    string password = 2;
+}
+
+message LoginResponse {
+    int32 code = 1;
+    string message = 2;
+    string authtoken = 3;
+}
+
+message CheckAuthRequest {
+    string authToken = 1;
+}
+
+message CheckAuthResponse {
+    uint64 userId = 1;
+    string userName = 2;
+}
+
+service GochatInterface {
+    rpc Login(LoginRequest) returns (LoginResponse){
+        option (google.api.http) = {
+            post: "/user/login"
+            body: "*"
+        };
+    }
+    rpc Register(RegisterRequest) returns (RegisterResponse){
+        option (google.api.http) = {
+            post: "/user/register"
+            body: "*"
+        };
+    }
+    rpc CheckAuth(CheckAuthRequest) returns (CheckAuthResponse) {
+        option (google.api.http) = {
+            post: "/user/checkAuth"
+            body: "*"
+        };
+    }
+}

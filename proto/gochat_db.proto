@@ -1,0 +1,32 @@
+syntax = "proto3";
+option go_package="./;proto";
+package gochat_by_rpc_db;
+
+message GochatDBRegisterRequest {
+    optional string username = 1;
+    optional string password = 2;
+}
+
+message GochatDBRegisterResponse {
+    optional int32 errcode = 1;
+    optional string errmsg = 2;
+    optional string authtoken = 3;
+}
+
+message GochatDBLoginRequest {
+    optional string username = 1;
+    optional string password = 2;
+}
+
+message GochatDBLoginResponse {
+    optional int32 errcode = 1;
+    optional string errmsg = 2;
+    optional string authtoken = 3;
+}
+
+service GochatDB {
+    rpc Login(GochatDBLoginRequest) returns (GochatDBLoginResponse){
+    }
+    rpc Register(GochatDBRegisterRequest) returns (GochatDBRegisterResponse){
+    }
+}
